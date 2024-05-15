@@ -12,6 +12,27 @@ let numGuesses = 1;
 let playGame = true;
 let remainingTime = 30;
 
+// Add a function that decrements the time
+function decrementTime() {
+  // 1. Decrementar la variable de estado 'remaningTime' en 1.
+  remainingTime--;
+  // 2. Deberiamos actualizarlo en el DOM - id=timer
+  document.querySelector('#timer').textContent = remainingTime;
+
+  // 3. Mirar si la variable de estado ha llegado a 0.
+  if (remainingTime == 0){
+    //3.1 Si es así, tenemos que mostrar un mensaje indicando que el tiempo se ha acabado. Buscad en el código porque existe una función para hacer esto. Además existe otra para indicar que el juego ha acabado.
+    displayMessage("Time's up!");
+    endGame();
+    clearInterval(inverval);
+  }
+  
+}
+// creamos una variable para que la funcion deje de ejecutarse.
+let inverval = setInterval(decrementTime,1000);
+
+
+
 if (playGame) {
   subt.addEventListener('click', function (e) {
     e.preventDefault();
@@ -94,6 +115,8 @@ function newGame() {
     userInput.removeAttribute('disabled');
     startOver.removeChild(p);
     playGame = true;
+    remainingTime = 30;
+    inverval = setInterval(decrementTime,1000);
   })
 }
 //Allow to restart game with restart button
@@ -101,3 +124,8 @@ function newGame() {
 
 //NOTES:
 //NaN != NaN
+
+
+
+
+
